@@ -7,7 +7,7 @@ async function transferData() {
   const atlasClient = new MongoClient(atlasUri);
 
   // Thông tin kết nối đến MongoDB local
-  const localUri = "mongodb://localhost:27017";
+  const localUri = "mongodb://nerd:123@localhost:27018/";
   const localClient = new MongoClient(localUri);
 
   try {
@@ -19,9 +19,9 @@ async function transferData() {
     const arrayDB = [
       "authdb",
       "coursedb",
-      "paymentdb",
+      "paymentdb:authdb",
       "flashcarddb",
-      "blogdb",
+      "blogdb:authdb",
     ];
 
     for (const dbName of arrayDB) {
