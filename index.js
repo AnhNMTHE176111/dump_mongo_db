@@ -11,7 +11,6 @@ async function transferData() {
   const localClient = new MongoClient(localUri);
 
   try {
-    // Kết nối đến MongoDB Atlas và MongoDB local
     await atlasClient.connect();
     await localClient.connect();
 
@@ -24,9 +23,14 @@ async function transferData() {
       "blogdb:authdb",
     ];
 
-    for (const dbName of arrayDB) {
-      // Sử dụng for...of thay vì forEach
-      const atlasDb = atlasClient.db(dbName); // Tên database trên Atlas
+    for (let dbName of arrayDB) {
+      const atlasDb = atlasClient.db(dbName);
+      if (dbName == "paymentdb:authdb") {
+        dbName = "paymentdb";
+      }
+      if (dbName == "blogdb:authdb") {
+        dbName = "blogdb";
+      }
       const localDb = localClient.db(dbName); // Tên database trên MongoDB local
 
       // Lấy danh sách collections trong database MongoDB Atlas
